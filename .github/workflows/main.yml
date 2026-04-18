@@ -1,1 +1,24 @@
+name: Pipeline desafio
+run-name: Pipeline executada por ${{ github.actor }}
 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtendo conteúdo do repo
+        uses: actions/checkout@v4
+      - name: Instalando .net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.300"
+      - name: Execução do comando de build
+        working-directory: ./src
+        run: dotnet build Review-Filmes.sln
+        
