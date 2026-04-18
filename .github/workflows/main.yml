@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: build
+    name: build dotnet
     runs-on: ubuntu-latest
     steps:
       - name: Obtendo conteúdo do repo
@@ -21,4 +21,24 @@ jobs:
       - name: Execução do comando de build
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
+  release:
+    name: Criação de imagem docker
+    runs-on: ubuntu-lates
+    steps:
+      - name: Obtendo conteúdo do repo
+        uses: actions/checkout@v4      
+      - name: Autenticando no docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Construção e push da imagem
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: ./src/Review-Filmes.Web/Dockerfile
+          push: true
+          tags: |
+            rangelcr/pipe-desafio:v${{ github.run_number }}
+            rangelcr/pipe-desafio:latest
         
