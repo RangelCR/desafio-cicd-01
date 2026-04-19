@@ -21,8 +21,14 @@ jobs:
       - name: Execução do comando de build
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
-  release:
+
+  testes:
     needs: [build]
+    uses: RangelCR/desafio-cicd-01/.github/workflows/testes.yaml@main
+
+
+  release:
+    needs: [testes]
     name: Criação de imagem docker
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           context: ./src
-          file: ./src/Review-Filmes.Web/Dockerfile
+          file: ./Review-Filmes.Web/Dockerfile
           push: true
           tags: |
             rangelcr/pipe-desafio:v${{ github.run_number }}
