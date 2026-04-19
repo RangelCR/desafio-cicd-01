@@ -5,7 +5,7 @@ on:
 
 jobs:
   teste_unidade:
-    name: Teste de teste de teste de unidade
+    name: Teste de unidade
     runs-on: ubuntu-latest
     steps:
       - name: Obtendo conteúdo do repo
@@ -17,3 +17,32 @@ jobs:
       - name: Execução de teste de unidade
         working-directory: ./src
         run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
+    
+  teste_integraçao:
+    needs: [teste_unidade]
+    name: Teste de integração
+    runs-on: ubuntu-latest
+    services:
+      postegres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: user_teste
+          POSTGRES_PASSWORD: postpwd
+          POSTGRES_DB: teste-db
+    steps:
+      - name: Obtendo conteúdo do repo
+        uses: actions/checkout@v4
+      - name: Instalando .net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.300"
+      - name: Execução de teste de integração
+        working-directory: ./src
+        run: dotnet test ./Review-Filmes.Test.Integration/Review-Filmes.Test.Integration.csproj
+        env:
+          ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=teste-db;Username=user_teste;Password=postpwd"
+          
+
+
