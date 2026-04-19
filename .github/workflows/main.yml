@@ -53,7 +53,7 @@ jobs:
             rangelcr/pipe-desafio:v${{ github.run_number }}
             rangelcr/pipe-desafio:latest
       - name: Realizando scan de vulnerabilidades da imagem com trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: rangelcr/pipe-desafio:latestS
           format: 'table'
