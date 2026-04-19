@@ -18,7 +18,7 @@ jobs:
         working-directory: ./src
         run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
     
-  teste_integraçao:
+  teste_integracao:
     needs: [teste_unidade]
     name: Teste de integração
     runs-on: ubuntu-latest
