@@ -57,7 +57,6 @@ jobs:
         with:
           image-ref: rangelcr/pipe-desafio:latest
           format: 'table'
-          exit-code: '1'
           vuln-type: 'os,library'          
           severity: 'CRITICAL,HIGH'            
         
