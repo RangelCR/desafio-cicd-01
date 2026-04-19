@@ -55,7 +55,7 @@ jobs:
       - name: Realizando scan de vulnerabilidades da imagem com trivy
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: rangelcr/pipe-desafio:latestS
+          image-ref: rangelcr/pipe-desafio:latest
           format: 'table'
           exit-code: '1'
           vuln-type: 'os,library'          
