@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           context: ./src
-          file: ./Review-Filmes.Web/Dockerfile
+          file: ./src/Review-Filmes.Web/Dockerfile
           push: true
           tags: |
             rangelcr/pipe-desafio:v${{ github.run_number }}
