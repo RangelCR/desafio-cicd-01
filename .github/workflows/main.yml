@@ -33,7 +33,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Obtendo conteúdo do repo
-        uses: actions/checkout@v4      
+        uses: actions/checkout@v4
+      - name: Analisando Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          context: ./src
+          file: ./src/Review-Filmes.Web/Dockerfile
       - name: Autenticando no docker hub
         uses: docker/login-action@v3
         with:
