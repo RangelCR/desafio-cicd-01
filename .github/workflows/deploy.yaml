@@ -1,0 +1,27 @@
+name: Realização de deploy no k8s
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtendo conteúdo do repo
+        uses: actions/checkout@v4
+
+      - name: Configurando acesso ao cluster k8s
+        uses: azure/k8s-set-context@v4
+        with: 
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+      
+      - name: Realizando o deploy
+        uses: Azure/k8s-deploy@v5
+        with:
+          manifests: |
+            k8s/deployment.yaml
+          images: |
+            rangelcr/pipe-desafio:v${{ github.run_number }}
+
+

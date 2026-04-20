@@ -25,6 +25,7 @@ jobs:
   testes:
     needs: [build]
     uses: RangelCR/desafio-cicd-01/.github/workflows/testes.yaml@main
+    secrets: inherit
 
 
   release:
@@ -58,5 +59,11 @@ jobs:
           image-ref: rangelcr/pipe-desafio:latest
           format: 'table'
           vuln-type: 'os,library'          
-          severity: 'CRITICAL,HIGH'            
+          severity: 'CRITICAL,HIGH'       
+
+  deploy:
+    needs: [release]
+    uses: RangelCR/desafio-cicd-01/.github/workflows/deploy.yaml@main
+    secrets: inherit
+
         
