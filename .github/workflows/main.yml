@@ -61,9 +61,20 @@ jobs:
           vuln-type: 'os,library'          
           severity: 'CRITICAL,HIGH'       
 
-  deploy:
+  deploy-hml:
     needs: [release]
     uses: RangelCR/desafio-cicd-01/.github/workflows/deploy.yaml@main
     secrets: inherit
+    with:
+      environment-name: hml
+      environment-url: http://homologacao.rangelcr.com
+
+  deploy-prd:
+    needs: [release]
+    uses: RangelCR/desafio-cicd-01/.github/workflows/deploy.yaml@main
+    secrets: inherit
+    with:
+      environment-name: prd
+      environment-url: http://producao.rangelcr.com      
 
         
