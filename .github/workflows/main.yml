@@ -79,7 +79,7 @@ jobs:
     container:
       image: fabricioveronez/webdriver-dotnet:chrome
       env:
-        BASE_URL: "http://${{ vars.BASE_URL }}"
+        BASE_URL: "http://168.144.12.131"
     steps:
       - name: Obtendo conteúdo do repo
         uses: actions/checkout@v4
