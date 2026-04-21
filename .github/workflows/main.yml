@@ -90,7 +90,7 @@ jobs:
       
 
   deploy-prd:
-    needs: [teste-e2e]
+    needs: [test-e2e]
     uses: RangelCR/desafio-cicd-01/.github/workflows/deploy.yaml@main
     secrets: inherit
     with:
